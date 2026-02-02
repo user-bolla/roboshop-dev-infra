@@ -37,7 +37,7 @@ resource "terraform_data" "mongodb" {
      }
 }
 
-#redis
+/* #redis
 resource "aws_instance" "redis" {
     ami = local.ami_id
     instance_type = "t3.micro"
@@ -113,4 +113,4 @@ resource "terraform_data" "rabbitmq" {
       "sudo sh /tmp/bootstrap.sh rabbitmq"
      ]
      }
-}
+} */
