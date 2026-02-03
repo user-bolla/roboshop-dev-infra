@@ -39,7 +39,7 @@ resource "terraform_data" "catalogue" {
 }
 
 #stop the instance to take image
-resource "aws_ec2_stop_instance" "catalogue" {
+resource "aws_ec2_instance_state" "catalogue" {
 
   instance_id = aws_instance.catalogue.id
   state = "stopped"
