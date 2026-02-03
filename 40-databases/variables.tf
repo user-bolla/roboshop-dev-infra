@@ -21,3 +21,10 @@ variable "sg_names" {
     "backend_alb"
   ]
 }
+
+variable "zone_id" {
+  default = "Z09862333DG9EIMMVCYEW"
+}
+variable "domain_name" {
+  default = "userbolla.store"
+}
