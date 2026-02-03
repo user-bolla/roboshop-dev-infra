@@ -37,3 +37,19 @@ resource "terraform_data" "catalogue" {
      ]
      }
 }
+
+#stop the instance to take image
+resource "aws_ec2_stop_instance" "catalogue" {
+
+  instance_id = aws_instance.catalogue.id
+  state = "stopped"
+  depends_on = [terraform_data.catalogue]
+}
+
+#aws ami from instance
+
+resource "aws_ami_from_instance" "catalogue" {
+  name               = "${local.common_name_suffix}-catalogue-ami"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [aws_ec2_stop_instance.catalogue]
+}
