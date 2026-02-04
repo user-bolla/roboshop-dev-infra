@@ -73,3 +73,13 @@ resource "aws_security_group_rule" "mongodb_catalogue" {
   protocol          = "tcp"
   to_port           = 27017
 }
+
+#catalogue SG allowing traffic from backend_alb
+resource "aws_security_group_rule" "catalogue_backend_alb" {
+  type              = "ingress"
+  security_group_id = local.catalogue_sg_id
+  source_security_group_id = local.backend_alb_sg_id
+  from_port         = 80
+  protocol          = "tcp"
+  to_port           = 80
+}
