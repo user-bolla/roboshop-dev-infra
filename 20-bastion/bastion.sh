@@ -2,7 +2,7 @@
 set -e  # stop on errors
 # growing the /home volume for terraform purpose
 growpart /dev/nvme0n1 4
-lvextend -L +30G /dev/RootVG/rootVol
+lvextend -L +30G /dev/mapper/RootVG-homeVol
 xfs_growfs /home
 
 
