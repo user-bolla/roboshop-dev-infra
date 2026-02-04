@@ -148,7 +148,7 @@ resource "aws_autoscaling_group" "catalogue" {
 
 }
 # autoscaling polocy
-resource "aws_autoscaling_policy" "catalogue_cpu_utilization" {
+resource "aws_autoscaling_policy" "catalogue" {
   name                   = "${local.common_name_suffix}-catalogue"
   autoscaling_group_name = aws_autoscaling_group.catalogue.name
   policy_type            = "TargetTrackingScaling"
@@ -173,7 +173,16 @@ resource "aws_lb_listener_rule" "catalogue" {
     host_header {
       values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
     }
-  }
+  }  
+}
 
-  
+# connect to instance using remote-exec provisioner through terraform-data
+resource "terraform_data" "catalogue_local" {
+  triggers_replace = [
+    aws_instance.catalogue.id
+  ]
+  depends_on = [ aws_autoscaling_policy.catalogue]
+  provisioner "local-exec" {
+    command = "aws ec2 terminate-instances --instances-ids ${aws_instance.catalogue.id}"
+  }
 }
