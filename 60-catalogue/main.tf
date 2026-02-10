@@ -85,6 +85,9 @@ resource "aws_launch_template" "catalogue" {
   instance_initiated_shutdown_behavior = "terminate"
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.catalogue_sg_id]
+  # when we run terraform apply again, a new version will be createdwith a new AMI ID and 
+  #the autoscaling group will use the latest version of launch template to create new instance with new AMI ID, so we need to update the default version of launch template to latest version
+  update_default_version = true
   #tags associated to instance
   tag_specifications {
     resource_type = "instance"
