@@ -83,3 +83,13 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
   protocol          = "tcp"
   to_port           = 8080
 }
+
+#catalogue SG allowing traffic from backend_alb
+resource "aws_security_group_rule" "public_frontend_alb" {
+  type              = "ingress"
+  security_group_id = local.frontend_alb_sg_id
+  cidr_blocks = ["0.0.0.0/0"]
+  from_port         = 443
+  protocol          = "tcp"
+  to_port           = 443
+}
