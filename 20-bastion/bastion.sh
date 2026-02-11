@@ -11,3 +11,11 @@ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashi
 sudo yum -y install terraform
 terraform version  # optional check
 
+
+
+#creating database with out logging into moba
+cd /home/ec2-user
+git clone https://github.com/user-bolla/roboshop-dev-infra.git
+cd roboshop-dev-infra/40-database
+terraform init
+terraform apply -auto-approve
